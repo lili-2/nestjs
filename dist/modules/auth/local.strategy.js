@@ -20,10 +20,9 @@ let LocalStrategy = class LocalStrategy extends (0, passport_1.PassportStrategy)
         this.authService = authService;
     }
     async validate(username, password) {
-        console.log('本地策略');
         const user = await this.authService.validateUser(username, password);
         if (!user) {
-            throw new common_1.HttpException({ message: '验证失败', error: '请重新登录' }, common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException({ code: 0, msg: '账号或密码错误' }, 200);
         }
         return user;
     }

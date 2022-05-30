@@ -28,60 +28,12 @@ export class UsersController {
   //   await this.usersService.createMany(newUsers);
   //   return true
   // }
-
-  // @Post('login')
-  // async login(@Body() body){
-  //   const {username , password} = body
-
-  //   console.log(username , password)
-
-  //   const authResult = await this.authService.validateUser(username , password);
-
-  //   console.log(authResult)
-  // }
   
+  @UseGuards(AuthGuard('local'))
   @Post('login')
-  async login(@Body() loginParmas) {
-    const authResult = await this.authService.validateUser(loginParmas.username, loginParmas.password)
-    console.log(authResult)
-    switch (authResult.code) {
-      case 1:
-        return this.authService.certificate(authResult.user);
-      case 2:
-        return {
-          code: 600,
-          msg: '账号或密码不正确'
-        }
-      default:
-        return {
-          code: 600,
-          msg: '查无此人'
-        }
-    }
-
-  // @UseGuards(AuthGuard('local'))
-  // @Post('login')
-  // async login(@Body() user,@Request() req) {
-  //   console.log('hello')
-  //   console.log(req.user)
-    // const authResult = await this.authService.validateUser(loginParmas.username, loginParmas.password)
-    // console.log(authResult)
-    // switch (authResult.code) {
-    //   case 1:
-    //     return this.authService.certificate(authResult.user);
-    //   case 2:
-    //     return {
-    //       code: 600,
-    //       msg: '账号或密码不正确'
-    //     }
-    //   default:
-    //     return {
-    //       code: 600,
-    //       msg: '查无此人'
-    //     }
-    // }
+  async login(@Body() _user,@Request() req) {
+    return this.authService.login(req.user)
   }
-
 
   @Post('register')
   async register(@Body() body){

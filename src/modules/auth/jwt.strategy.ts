@@ -8,17 +8,16 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor() {
     super(
       {
-      // jwtFromRequest: ExtractJwt.fromHeader('token'),
-      jwtFromRequest:ExtractJwt.fromAuthHeaderAsBearerToken(),
-      ignoreExpiration: false,
-      secretOrKey: jwtConstants.secret,
-    }
+        // jwtFromRequest: ExtractJwt.fromHeader('token'),
+        jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+        ignoreExpiration: false,
+        secretOrKey: jwtConstants.secret,
+      }
     );
   }
 
   async validate(payload: any) {
-    console.log("JWT 验证 解析token")
-    console.log(payload)
+    //  console.log("JWT 验证 解析token")
     return {
       // userId: payload.sub, 
       username: payload.username

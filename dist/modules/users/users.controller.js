@@ -25,23 +25,8 @@ let UsersController = class UsersController {
     findAll() {
         return this.usersService.findAll();
     }
-    async login(loginParmas) {
-        const authResult = await this.authService.validateUser(loginParmas.username, loginParmas.password);
-        console.log(authResult);
-        switch (authResult.code) {
-            case 1:
-                return this.authService.certificate(authResult.user);
-            case 2:
-                return {
-                    code: 600,
-                    msg: '账号或密码不正确'
-                };
-            default:
-                return {
-                    code: 600,
-                    msg: '查无此人'
-                };
-        }
+    async login(_user, req) {
+        return this.authService.login(req.user);
     }
     async register(body) {
         return await this.usersService.register(body);
@@ -55,10 +40,12 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], UsersController.prototype, "findAll", null);
 __decorate([
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('local')),
     (0, common_1.Post)('login'),
     __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Request)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "login", null);
 __decorate([

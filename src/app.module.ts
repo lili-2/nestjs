@@ -7,6 +7,10 @@ import { UsersModule } from './modules/users/users.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersController } from './modules/users/users.controller';
+import { PicModule } from './modules/pic/pic.module';
+import { PicController } from './modules/pic/pic.controller';
+import { PicService } from './modules/pic/pic.service';
+
 
 @Module({
   imports: [
@@ -17,6 +21,7 @@ import { UsersController } from './modules/users/users.controller';
     }),
     AuthModule,  
     UsersModule,
+   PicModule,
   ],
   controllers: [UsersController, AppController],
   providers: [AppService],

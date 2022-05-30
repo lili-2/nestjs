@@ -5,16 +5,6 @@ export declare class UsersController {
     private readonly authService;
     constructor(usersService: UsersService, authService: AuthService);
     findAll(): Promise<import("./users.entity").UsersEntity[]>;
-    login(loginParmas: any): Promise<{
-        code: number;
-        data: {
-            token: string;
-        };
-        msg: string;
-    } | {
-        code: number;
-        msg: string;
-        data?: undefined;
-    }>;
+    login(_user: any, req: any): Promise<any>;
     register(body: any): Promise<any>;
 }

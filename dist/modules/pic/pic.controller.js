@@ -12,42 +12,31 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AuthController = void 0;
+exports.PicController = void 0;
 const common_1 = require("@nestjs/common");
-const passport_1 = require("@nestjs/passport");
-const auth_service_1 = require("./auth.service");
-let AuthController = class AuthController {
-    constructor(authService) {
-        this.authService = authService;
-    }
-    login(req) {
-        return this.authService.login(req.user);
-    }
-    async getDoctorList(req) {
-        console.log('jwt ');
-        console.log(req.user);
-        return req.user;
+var parseString = require('xml2js').parseString;
+let PicController = class PicController {
+    constructor() { }
+    async savePic(req) {
+        req.on('data', reqs => {
+            parseString(reqs, function (err, result) {
+                console.log(result);
+                console.log(err);
+            });
+        });
+        return 'heelo';
     }
 };
 __decorate([
-    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('local')),
-    (0, common_1.Post)('/auth/login'),
-    __param(0, (0, common_1.Request)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", void 0)
-], AuthController.prototype, "login", null);
-__decorate([
-    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('jwt')),
-    (0, common_1.Get)('me'),
+    (0, common_1.Post)(),
     __param(0, (0, common_1.Request)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
-], AuthController.prototype, "getDoctorList", null);
-AuthController = __decorate([
-    (0, common_1.Controller)(),
-    __metadata("design:paramtypes", [auth_service_1.AuthService])
-], AuthController);
-exports.AuthController = AuthController;
-//# sourceMappingURL=auth.controller.js.map
+], PicController.prototype, "savePic", null);
+PicController = __decorate([
+    (0, common_1.Controller)('pic'),
+    __metadata("design:paramtypes", [])
+], PicController);
+exports.PicController = PicController;
+//# sourceMappingURL=pic.controller.js.map
